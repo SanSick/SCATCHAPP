@@ -42,22 +42,22 @@ module.exports.loginUser = async function (req, res) {
   let user = await userModel.findOne({ email: email });
   if (!user) {
     req.flash("error", "Email or Password incorrect");
-    return res.redirect("/");
+    return res.redirect("/index");
   }
 
   bcrypt.compare(password, user.password, function (err, result) {
     if (result) {
       let token = generateToken(user);
       res.cookie("token", token);
-      res.send("user is succesfully logined");
+      res.redirect("/shop");
     } else {
       req.flash("error", "Email or Password incorrect");
-      return res.redirect("/");
+      return res.redirect("/index");
     }
   });
 };
 
 module.exports.logout = function(req, res){
   res.cookie("token", "");
-  res.redirect("/");
+  res.redirect("/index");
 }

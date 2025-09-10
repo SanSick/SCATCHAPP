@@ -7,24 +7,24 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
 </head>
 
 <body class="font-sans">
-    <nav class="w-full flex justify-between px-5 py-3 pt-5">
-        <h3 class="text-xl">Scatch</h3>
+    <nav class="grid grid-cols-1 sm:grid-cols-2 px-5 py-3 pt-5">
+        <h3 class="text-xl mb-2 sm:mb-0">Scatch</h3>
 
-        <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
-        <% if(loggedin){ %>
-            <div class="flex gap-7 ">
-                <a href="/shop">Shop</a>
-                <a href="/cart">Cart</a>
-                <a href="/account">My Account</a>
-                <a class="text-red-600 font-[600]" href="/users/logout">Logout</a>
-            </div>
-        <% } %>
-
+        <% var loggedin=typeof loggedin !=="undefined" ? loggedin : true %>
+            <% if(loggedin){ %>
+                <div class="flex gap-7 text-sm md:text-base place-self-start md:place-self-end">
+                    <a href="/shop">Shop</a>
+                    <a href="/cart">Cart</a>
+                    <a href="/account">My Account</a>
+                    <a class="text-red-600 font-[600]" href="/users/logout">Logout</a>
+                </div>
+                <% } %>
     </nav>
 </body>
-</html>
 
-    
+</html>

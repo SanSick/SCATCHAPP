@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { buffer } = require("stream/consumers");
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -20,7 +21,7 @@ const productSchema = new mongoose.Schema({
     default: "No description available",
   },
   image: {
-    type: String,
+    type: Buffer,
     default: "https://via.placeholder.com/150",
   },
   createdAt: {
