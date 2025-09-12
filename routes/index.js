@@ -28,7 +28,8 @@ router.get("/shop", isLoggedIn, async function (req, res) {
 router.get("/cart", isLoggedIn, async function (req, res) {
   let user = await userModel
     .findOne({ email: req.user.email })
-    .populate("cart");
+    .populate("cart.product"); 
+    
 
   // console.log(user.cart);
   res.render("cart", { user });
@@ -37,15 +38,87 @@ router.get("/cart", isLoggedIn, async function (req, res) {
 router.get("/addtocart/:productid", isLoggedIn, async function (req, res) {
   try {
     let user = await userModel.findOne({ email: req.user.email });
-    user.cart.push(req.params.productid);
+
+    let existingItem = user.cart.find(
+      (item) => item.product.toString() === req.params.productid
+    )
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    }else{
+      user.cart.push({product: req.params.productid, quantity : 1});
+    }
     await user.save();
     req.flash("success", "Added to cart");
-    res.redirect("/shop");
+    res.redirect("/cart");
   } catch (err) {
     console.error("❌ Error fetching product:", err);
     res.status(500).send("Server error");
   }
 });
+
+router.get("/cart/increasequantity/:productid", isLoggedIn, async function (req, res) {
+  try {
+    // console.log(req.params.productid)
+    let user = await userModel.findOne({ email: req.user.email });
+    let prevCart = user.cart;
+    // console.log(prevCart)
+    const newCart = prevCart.map(c=>
+      {
+        if(c.product==req.params.productid){
+          c.quantity = c.quantity+1;
+        }
+        return c;
+      } 
+      )
+
+    user.cart = newCart;
+
+    // console.log(user)
+
+    await user.save();
+    req.flash("success", "Added to cart");
+    res.redirect("/cart");
+  } catch (err) {
+    console.error("❌ Error fetching product:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.get("/cart/decreasequantity/:productid", isLoggedIn, async function (req, res) {
+  try {
+    // console.log(req.params.productid)
+    let user = await userModel.findOne({ email: req.user.email });
+    let prevCart = user.cart;
+    // console.log(prevCart)
+    const newCart = prevCart.map(c=>
+      {
+        if(c.product==req.params.productid){
+          c.quantity = c.quantity-1;
+        }
+        return c;
+      } 
+      )
+
+    user.cart = newCart;
+
+    // console.log(user)
+
+    await user.save();
+    req.flash("success", "Added to cart");
+    res.redirect("/cart");
+  } catch (err) {
+    console.error("❌ Error fetching product:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+router.post("/cart/remove/:productid",isLoggedIn, async function(req, res){
+  await userModel.findByIdAndUpdate(req.user._id, {
+    $pull : { cart: { product: req.params.productid } }
+  });
+  res.redirect("/cart")
+})
 
 router.get("/logout", isLoggedIn, function (req, res) {
   res.redirect("/index");
