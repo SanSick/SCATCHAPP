@@ -50,7 +50,7 @@ router.get("/addtocart/:productid", isLoggedIn, async function (req, res) {
     }
     await user.save();
     req.flash("success", "Added to cart");
-    res.redirect("/cart");
+    res.redirect("/shop");
   } catch (err) {
     console.error("❌ Error fetching product:", err);
     res.status(500).send("Server error");

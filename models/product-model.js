@@ -28,6 +28,10 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  inStock: {
+    type: Boolean,
+    default: true,
+  }
 });
 
 module.exports = mongoose.model("product", productSchema);

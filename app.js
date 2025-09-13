@@ -33,6 +33,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
+app.use("/uploads", express.static("uploads"));
+
 app.use("/", indexRouter);
 app.use("/owners", ownersRouter);
 app.use("/products", productsRouter);
