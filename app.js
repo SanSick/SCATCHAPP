@@ -6,6 +6,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 
 require("dotenv").config();
+const PORT = process.env.PORT || 3000;
 
 const indexRouter = require("./routes/index");
 const ownersRouter = require("./routes/ownersRouter");
@@ -44,10 +45,10 @@ app.use("/users", usersRouter);
 //     console.log("⚙️ App running in DEVELOPMENT mode");
 // }
 
-app.listen(process.env.PORT, (error) =>
+app.listen(PORT, (error) =>
   console.log(
     error
       ? `Error starting server: ${error.message}`
-      : `Server is running on port ${process.env.PORT}`
+      : `Server is running on port ${PORT}`
   )
 );
