@@ -44,10 +44,10 @@ app.use("/users", usersRouter);
 //     console.log("⚙️ App running in DEVELOPMENT mode");
 // }
 
-app.listen("3000", (error) =>
+app.listen(process.env.PORT, (error) =>
   console.log(
     error
       ? `Error starting server: ${error.message}`
-      : "Server is running on port 3000"
+      : `Server is running on port ${process.env.PORT}`
   )
 );
