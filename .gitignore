@@ -2,3 +2,4 @@ node_modules
 .env
 notes.cs
 /config/development.json
+/config/key.json
