@@ -49,9 +49,8 @@
                                     <% products.forEach(function(product) { %>
                                         <div
                                             class="rounded-md shadow-md hover:shadow-xl transition flex flex-col overflow-hidden bg-white">
-
                                             <!-- Image Section -->
-                                            <a  href="/products/<%= product._id %>"
+                                            <a href="/products/<%= product._id %>"
                                                 class="w-full h-68 flex items-center justify-center bg-gray-100 overflow-hidden rounded-t-md">
                                                 <img class="h-[95%] object-contain" src="<%= product.image %>"
                                                     alt="<%= product.name %>">

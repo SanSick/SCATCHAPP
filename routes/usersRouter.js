@@ -95,3 +95,4 @@ router.post(
 router.get("/logout", isLoggedIn, logout);
 
 module.exports = router;
+

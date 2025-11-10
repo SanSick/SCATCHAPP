@@ -34,7 +34,7 @@
 //   }
 // });
 
-const mongooseConnection = require("./config/mongoose-connection");
+const mongooseConnection = require("./config/mongoose-connection"); 
 const fetch = require("node-fetch"); // install node-fetch v2: npm install node-fetch@2
 const Product = require("./models/product-model");
 
